@@ -27,7 +27,7 @@ class CreateUserRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'roles' => 'nullable|array',
-            'roles.*' => 'integer|exists:roles,id'
+            'roles.*' => 'integer|exists:roles,id',
         ];
     }
 
@@ -37,7 +37,7 @@ class CreateUserRequest extends FormRequest
             'name.required' => 'Name harus diisi',
             'email.required' => 'Email harus diisi',
             'password.required' => 'Password harus diisi',
-            'password.confirmed' => 'Password tidak sama'
+            'password.confirmed' => 'Password tidak sama',
         ];
     }
 }

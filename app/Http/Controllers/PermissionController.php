@@ -17,9 +17,9 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
         $permissions = Permission::all();
-        
+
         $groupedPermissions = $permissions->groupBy('group');
-        
+
         return Inertia::render('permissions/index', [
             'permissions' => $groupedPermissions,
             'ungroupedPermissions' => $permissions->whereNull('group'),
@@ -29,9 +29,7 @@ class PermissionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -43,9 +41,11 @@ class PermissionController extends Controller
             Permission::create($storePermissionRequest->validated());
 
             DB::commit();
+
             return back()->with('success', 'Permission berhasil ditambahkan');
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->with('error', $e->getMessage());
         }
     }
@@ -57,9 +57,7 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.
@@ -81,6 +79,7 @@ class PermissionController extends Controller
         //
         $permission = Permission::find($id);
         $permission->delete();
+
         return redirect()->route('permissions.index')->with('success', 'Permission berhasil dihapus');
     }
 }

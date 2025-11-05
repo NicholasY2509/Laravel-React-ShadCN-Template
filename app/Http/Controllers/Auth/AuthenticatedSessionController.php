@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
-use Laravel\Fortify\Features;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -31,7 +30,6 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $user = $request->validateCredentials();
-
 
         Auth::login($user, $request->boolean('remember'));
 

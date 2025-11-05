@@ -24,8 +24,8 @@ class StorePermissionRequest extends FormRequest
     {
         return [
             //
-            'name'       => 'required|string|max:255',
-            'group'      => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'group' => 'required|string|max:255',
             'guard_name' => 'required|string|max:255',
         ];
     }
@@ -33,8 +33,8 @@ class StorePermissionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'       => 'Nama Harus diisi',
-            'group.required'      => 'Group Harus diisi',
+            'name.required' => 'Nama Harus diisi',
+            'group.required' => 'Group Harus diisi',
             'guard_name.required' => 'Guard Harus diisi',
         ];
     }

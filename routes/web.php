@@ -16,9 +16,9 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     Route::resources([
-        'users'         => UserController::class,
-        'roles'         => RoleController::class,
-        'permissions'   => PermissionController::class,
+        'users' => UserController::class,
+        'roles' => RoleController::class,
+        'permissions' => PermissionController::class,
     ]);
 });
 

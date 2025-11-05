@@ -24,7 +24,7 @@ class UpdatePermissionRequest extends FormRequest
     {
         return [
             //
-            'name'       => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'group' => 'required|string|max:255',
             'guard_name' => 'required|string|max:255',
         ];
@@ -32,9 +32,9 @@ class UpdatePermissionRequest extends FormRequest
 
     public function messages()
     {
-       return [
-            'name.required'       => 'Nama Harus Diisi',
-            'group.required'      => 'Group Harus Diisi',
+        return [
+            'name.required' => 'Nama Harus Diisi',
+            'group.required' => 'Group Harus Diisi',
             'guard_name.required' => 'Guard Harus Diisi',
         ];
     }

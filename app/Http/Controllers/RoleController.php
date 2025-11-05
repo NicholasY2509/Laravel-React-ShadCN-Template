@@ -8,7 +8,6 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-use Redirect;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -18,9 +17,9 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        // 
+        //
         $roles = Role::with('permissions:id,name,group')->latest()->get();
-        
+
         return Inertia::render('roles/index', [
             'roles' => $roles,
         ]);
@@ -34,7 +33,7 @@ class RoleController extends Controller
         //
         $permissions = Permission::all();
         $groupedPermissions = $permissions->groupBy('group');
-        
+
         return Inertia::render('roles/create', [
             'permissions' => $permissions,
             'groupedPermissions' => $groupedPermissions,
@@ -71,9 +70,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -85,7 +82,7 @@ class RoleController extends Controller
         $permissions = Permission::all();
 
         $groupedPermissions = $permissions->groupBy('group');
-        
+
         return Inertia::render('roles/edit', [
             'role' => $role,
             'permissions' => $permissions,
@@ -107,8 +104,6 @@ class RoleController extends Controller
                 'guard_name' => $data['guard_name'] ?? $role->guard_name,
             ]);
 
-
-            
             $permissionIds = isset($data['permissions_ids']) && is_array($data['permissions_ids']) ? $data['permissions_ids'] : [];
             $role->permissions()->sync($permissionIds);
 
@@ -120,7 +115,7 @@ class RoleController extends Controller
             throw $th;
         }
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */
@@ -132,7 +127,7 @@ class RoleController extends Controller
 
             DB::commit();
 
-            return redirect()->route("roles.index")->with('success', 'Role berhasil dihapus');
+            return redirect()->route('roles.index')->with('success', 'Role berhasil dihapus');
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;

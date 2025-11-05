@@ -25,10 +25,10 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $this->user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$this->user->id,
             'password' => 'nullable|string|min:8|confirmed',
             'roles' => 'nullable|array',
-            'roles.*' => 'integer|exists:roles,id'
+            'roles.*' => 'integer|exists:roles,id',
         ];
     }
 
@@ -37,7 +37,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name.required' => 'Name harus diisi',
             'email.required' => 'Email harus diisi',
-            'password.confirmed' => 'Password tidak sama'
+            'password.confirmed' => 'Password tidak sama',
         ];
     }
 }

@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Inertia\Inertia;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -26,13 +26,12 @@ class UserController extends Controller
         $perPage = $request->input('per_page', 10);
 
         $users = User::filter($filters)->with('roles')->paginate($perPage);
-        
-        return Inertia::render("users/index", [
-            "users" => $users,
-            "roles" => Role::all(),
+
+        return Inertia::render('users/index', [
+            'users' => $users,
+            'roles' => Role::all(),
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -45,7 +44,7 @@ class UserController extends Controller
             $userData = $request->validated();
             unset($userData['roles']);
             $user = User::create($userData);
-            
+
             if ($request->has('roles') && is_array($request->roles)) {
                 $roleIds = $request->roles;
                 $roles = Role::whereIn('id', $roleIds)->get();
@@ -53,13 +52,14 @@ class UserController extends Controller
             }
 
             DB::commit();
+
             return back()->with('success', 'User berhasil ditambahkan');
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->with('error', $e->getMessage());
         }
     }
-
 
     /**
      * Display the specified resource.
@@ -85,14 +85,14 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $validatedData = $request->validated();
-            
+
             $userData = $request->only(['name', 'email']);
             $user->update($userData);
-            
+
             if ($request->filled('password')) {
                 $user->update(['password' => bcrypt($request->password)]);
             }
-            
+
             if ($request->has('roles') && is_array($request->roles)) {
                 $roleIds = $request->roles;
                 $roles = Role::whereIn('id', $roleIds)->get();
@@ -100,9 +100,11 @@ class UserController extends Controller
             }
 
             DB::commit();
+
             return back()->with('success', 'User berhasil diupdate');
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->with('error', $e->getMessage());
         }
     }
