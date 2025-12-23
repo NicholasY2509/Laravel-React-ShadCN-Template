@@ -47,6 +47,18 @@ class User extends Authenticatable
         ];
     }
 
+    protected $appends = ['role_names', 'permission_names'];
+
+    public function getRoleNamesAttribute()
+    {
+        return $this->roles->pluck('name');
+    }
+
+    public function getPermissionNamesAttribute()
+    {
+        return $this->getAllPermissions()->pluck('name');
+    }
+
     public function scopeFilter($query, array $filters)
     {
         if (! empty($filters['search'])) {

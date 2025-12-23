@@ -24,6 +24,7 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+        permissions: ['dashboard'],
     },
     {
         title: 'User Settings',
